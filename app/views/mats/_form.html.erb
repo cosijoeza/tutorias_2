@@ -1,0 +1,28 @@
+<%= form_with(model: mat, local: true) do |form| %>
+  <% if mat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(mat.errors.count, "error") %> prohibited this mat from being saved:</h2>
+
+      <ul>
+      <% mat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nombre %>
+    <%= form.text_field :nombre, id: :mat_nombre %>
+  </div>
+  
+
+  <div class="field">
+    <%= form.label :semestre %>
+    <%= form.text_field :semestre, id: :mat_semestre %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

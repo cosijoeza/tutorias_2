@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tutor:</strong>
+  <%= @tutor.prof %>
+</p>
+
+<p>
+  <strong>Alumno:</strong>
+  <%= @tutor.alum %>
+</p>
+
+<%= link_to 'Editar', edit_tutor_path(@tutor) %> |
+<%= link_to 'Volver', tutors_path %>

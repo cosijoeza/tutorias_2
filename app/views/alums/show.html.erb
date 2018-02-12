@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Matricula:</strong>
+  <%= @alum.matricula %>
+</p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @alum.nombre %>
+</p>
+
+<p>
+  <strong>Apellidos:</strong>
+  <%= @alum.apellidos %>
+</p>
+
+<p>
+  <strong>Foto:</strong>
+  <%= @alum.foto %>
+</p>
+
+<p>
+  <strong>Correo:</strong>
+  <%= @alum.correo %>
+</p>
+
+<p>
+  <strong>Prof:</strong>
+  <%= @alum.prof %>
+</p>
+
+<p>
+  <strong>Idiom:</strong>
+  <%= @alum.idiom %>
+</p>
+
+<%= link_to 'Editar', edit_alum_path(@alum) %> |
+<%= link_to 'volver', alums_path %>

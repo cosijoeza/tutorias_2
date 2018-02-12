@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @mat.nombre %>
+</p>
+
+<p>
+  <strong>Semestre:</strong>
+  <%= @mat.semestre %>
+</p>
+
+<%= link_to 'Editar', edit_mat_path(@mat) %> |
+<%= link_to 'Volver', mats_path %>

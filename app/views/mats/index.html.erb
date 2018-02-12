@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Materia</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Semestre</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mats.each do |mat| %>
+      <tr>
+        <td><%= mat.nombre %></td>
+        <td><%= mat.semestre %></td>
+        <td><%= link_to 'Mostrar', mat %></td>
+        <td><%= link_to 'Editar', edit_mat_path(mat) %></td>
+        <td><%= link_to 'Eliminar', mat, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nueva materia', new_mat_path %>
+<br/>
+<a href="http://localhost/tutorias/admin.php"><button type="button" class="btn btn-primary">Regresar</button></a>

@@ -1,0 +1,22 @@
+<%= form_with(model: pru, local: true) do |form| %>
+  <% if pru.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pru.errors.count, "error") %> prohibited this pru from being saved:</h2>
+
+      <ul>
+      <% pru.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :foto %>
+    <%= form.text_field :foto, id: :pru_foto %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

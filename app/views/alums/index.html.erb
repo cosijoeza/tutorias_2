@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Alumnos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Matricula</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Foto</th>
+      <th>Correo</th>
+      <th>Tutor</th>
+      <th>Nivel de ingles</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alums.each do |alum| %>
+      <tr>
+        <td><%= alum.matricula %></td>
+        <td><%= alum.nombre %></td>
+        <td><%= alum.apellidos %></td>
+        <td><%= alum.foto %></td>
+        <td><%= alum.correo %></td>
+        <td><%= alum.prof %></td>
+        <td><%= alum.idiom %></td>
+        <td><%= link_to 'Mostrar', alum %></td>
+        <td><%= link_to 'Editar', edit_alum_path(alum) %></td>
+        <td><%= link_to 'Eliminar', alum, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nuevo alumno', new_alum_path %>
+<br/>
+<a href="http://localhost/tutorias/admin.php"><button type="button" class="btn btn-primary">Regresar</button></a>

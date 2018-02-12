@@ -1,0 +1,27 @@
+<%= form_with(model: tutor, local: true) do |form| %>
+  <% if tutor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tutor.errors.count, "error") %> prohibited this tutor from being saved:</h2>
+
+      <ul>
+      <% tutor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :prof_id %>
+    <%= form.text_field :prof_id, id: :tutor_prof_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :alum_id %>
+    <%= form.text_field :alum_id, id: :tutor_alum_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

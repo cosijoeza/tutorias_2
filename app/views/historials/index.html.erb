@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Historial academico</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Alumno</th>
+      <th>Materia</th>
+      <th>Parcial 1</th>
+      <th>Parcial 2</th>
+      <th>Parcial 3</th>
+      <th>Final</th>
+      <th>Extra 1</th>
+      <th>Extra 2</th>
+      <th>Especial</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @historials.each do |historial| %>
+      <tr>
+        <td><%= historial.alum %></td>
+        <td><%= historial.mat %></td>
+        <td><%= historial.calif_1 %></td>
+        <td><%= historial.calif_2 %></td>
+        <td><%= historial.calif_3 %></td>
+        <td><%= historial.final %></td>
+        <td><%= historial.ext_1 %></td>
+        <td><%= historial.ext_2 %></td>
+        <td><%= historial.esp %></td>
+        <td><%= link_to 'Mostrar', historial %></td>
+        <td><%= link_to 'Editar', edit_historial_path(historial) %></td>
+        <td><%= link_to 'Eliminar', historial, method: :delete, data: { confirm: '¿Estas seguro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Agregar historial', new_historial_path %>

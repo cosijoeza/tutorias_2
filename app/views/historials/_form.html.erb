@@ -1,0 +1,62 @@
+<%= form_with(model: historial, local: true) do |form| %>
+  <% if historial.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(historial.errors.count, "error") %> prohibited this historial from being saved:</h2>
+
+      <ul>
+      <% historial.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :alum_id %>
+    <%= form.text_field :alum_id, id: :historial_alum_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mat_id %>
+    <%= form.text_field :mat_id, id: :historial_mat_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :calif_1 %>
+    <%= form.text_field :calif_1, id: :historial_calif_1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :calif_2 %>
+    <%= form.text_field :calif_2, id: :historial_calif_2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :calif_3 %>
+    <%= form.text_field :calif_3, id: :historial_calif_3 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :final %>
+    <%= form.text_field :final, id: :historial_final %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ext_1 %>
+    <%= form.text_field :ext_1, id: :historial_ext_1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ext_2 %>
+    <%= form.text_field :ext_2, id: :historial_ext_2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :esp %>
+    <%= form.text_field :esp, id: :historial_esp %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
