@@ -1,0 +1,2724 @@
+  [1m[35m (40.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (1297.6ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY) ENGINE=InnoDB[0m
+  [1m[35m (1046.2ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (19.8ms)[0m  [1m[34mSELECT GET_LOCK(3251891552908144230, 0)[0m
+  [1m[35m (28.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (77.6ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2018-02-08 23:47:19', '2018-02-08 23:47:19')[0m
+  [1m[35m (66.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT RELEASE_LOCK(3251891552908144230)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (16.2ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT GET_LOCK(3251891552908144230, 0)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateProfs (20180208235006)
+  [1m[35m (475.2ms)[0m  [1m[35mCREATE TABLE `profs` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `nombre` varchar(255), `usuario` varchar(255), `correo` varchar(255), `instituto` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (26.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180208235006')[0m
+  [1m[35m (67.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateIdioms (20180208235023)
+  [1m[35m (400.7ms)[0m  [1m[35mCREATE TABLE `idioms` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `nivel` varchar(255), `semestre` varchar(255), `estado` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (19.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180208235023')[0m
+  [1m[35m (78.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAlums (20180208235106)
+  [1m[35m (977.5ms)[0m  [1m[35mCREATE TABLE `alums` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `matricula` int, `nombre` varchar(255), `apellidos` varchar(255), `foto` varchar(255), `correo` varchar(255), `prof_id` bigint, `idiom_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_alums_on_prof_id`  (`prof_id`),  INDEX `index_alums_on_idiom_id`  (`idiom_id`), CONSTRAINT `fk_rails_ea2f3ae33b`
+FOREIGN KEY (`prof_id`)
+  REFERENCES `profs` (`id`)
+, CONSTRAINT `fk_rails_e8f473fb08`
+FOREIGN KEY (`idiom_id`)
+  REFERENCES `idioms` (`id`)
+) ENGINE=InnoDB[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (44.7ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180208235106')[0m
+  [1m[35m (64.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMats (20180208235122)
+  [1m[35m (533.7ms)[0m  [1m[35mCREATE TABLE `mats` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `nombre` varchar(255), `calif_1` float, `calif_2` float, `calif_3` float, `final` float, `ext_1` float, `ext_2` float, `esp` float, `semestre` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (20.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180208235122')[0m
+  [1m[35m (65.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAlumMats (20180208235154)
+  [1m[35m (533.8ms)[0m  [1m[35mCREATE TABLE `alum_mats` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `alum_id` bigint, `mat_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_alum_mats_on_alum_id`  (`alum_id`),  INDEX `index_alum_mats_on_mat_id`  (`mat_id`), CONSTRAINT `fk_rails_dc1c8b80b3`
+FOREIGN KEY (`alum_id`)
+  REFERENCES `alums` (`id`)
+, CONSTRAINT `fk_rails_27ff7531b7`
+FOREIGN KEY (`mat_id`)
+  REFERENCES `mats` (`id`)
+) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180208235154')[0m
+  [1m[35m (53.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateEnts (20180208235212)
+  [1m[35m (454.5ms)[0m  [1m[35mCREATE TABLE `ents` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `fecha` date, `prof_id` bigint, `notas` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_ents_on_prof_id`  (`prof_id`), CONSTRAINT `fk_rails_c693108f00`
+FOREIGN KEY (`prof_id`)
+  REFERENCES `profs` (`id`)
+) ENGINE=InnoDB[0m
+  [1m[35m (20.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180208235212')[0m
+  [1m[35m (88.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAdmins (20180208235234)
+  [1m[35m (420.4ms)[0m  [1m[35mCREATE TABLE `admins` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `nombre` varchar(255), `password` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180208235234')[0m
+  [1m[35m (52.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK(3251891552908144230)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (4.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT GET_LOCK(3251891552908144230, 0)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreatePruebas (20180209001532)
+  [1m[35m (481.1ms)[0m  [1m[35mCREATE TABLE `pruebas` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `nombre` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (46.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180209001532')[0m
+  [1m[35m (70.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK(3251891552908144230)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/alums" for 127.0.0.1 at 2018-02-08 18:20:07 -0600
+  [1m[35m (15.8ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (53.4ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  Rendered alums/index.html.erb within layouts/application (67.1ms)
+Completed 200 OK in 18112ms (Views: 18001.0ms | ActiveRecord: 54.5ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-08 18:20:33 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  Rendered alums/_form.html.erb (118.2ms)
+  Rendered alums/new.html.erb within layouts/application (120.9ms)
+Completed 200 OK in 357ms (Views: 227.3ms | ActiveRecord: 66.0ms)
+
+
+Started POST "/alums" for 127.0.0.1 at 2018-02-08 18:22:21 -0600
+Processing by AlumsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"VeAguCjWzwnd9DqsJcEEtkKBTa6QP4jfiI3d7fKiT7dP8u+Gn4sDIQmBr0oNVJGBqGvxq+ZAO7Bv0U+U+FRelg==", "alum"=>{"matricula"=>"2014020423", "nombre"=>"Cosijoeza", "apellidos"=>"Melchor Nolasco", "foto"=>"estudiante_30.jpg", "correo"=>"cosi.melchor@gmail.com", "prof_id"=>"1", "idiom_id"=>"1"}, "commit"=>"Create Alum"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (4.3ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[35m (4.8ms)[0m  [1m[31mROLLBACK[0m
+  Rendering alums/new.html.erb within layouts/application
+  Rendered alums/_form.html.erb (38.3ms)
+  Rendered alums/new.html.erb within layouts/application (43.5ms)
+Completed 200 OK in 487ms (Views: 170.2ms | ActiveRecord: 52.4ms)
+
+
+Started GET "/profs" for 127.0.0.1 at 2018-02-08 18:22:28 -0600
+Processing by ProfsController#index as HTML
+  Rendering profs/index.html.erb within layouts/application
+  [1m[36mProf Load (0.8ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  Rendered profs/index.html.erb within layouts/application (35.6ms)
+Completed 200 OK in 134ms (Views: 130.1ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/profs/new" for 127.0.0.1 at 2018-02-08 18:22:29 -0600
+Processing by ProfsController#new as HTML
+  Rendering profs/new.html.erb within layouts/application
+  Rendered profs/_form.html.erb (7.0ms)
+  Rendered profs/new.html.erb within layouts/application (22.1ms)
+Completed 200 OK in 195ms (Views: 152.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/profs" for 127.0.0.1 at 2018-02-08 18:23:08 -0600
+Processing by ProfsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"djODOLNa2uRa8SYGU4j/EGQqPRLCP9ozSeFOEL8nZRdqJ/TT3Jnq/2B1OdmMEgBO7kuZi+vyxxj6RCJ9YQUTow==", "prof"=>{"nombre"=>"Arturo de labarrera", "usuario"=>"arturo", "correo"=>"arturito@gmail.com", "instituto"=>"computacion"}, "commit"=>"Create Prof"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (147.7ms)[0m  [1m[32mINSERT INTO `profs` (`nombre`, `usuario`, `correo`, `instituto`, `created_at`, `updated_at`) VALUES ('Arturo de labarrera', 'arturo', 'arturito@gmail.com', 'computacion', '2018-02-09 00:23:08', '2018-02-09 00:23:08')[0m
+  [1m[35m (181.0ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/profs/1
+Completed 302 Found in 342ms (ActiveRecord: 328.9ms)
+
+
+Started GET "/profs/1" for 127.0.0.1 at 2018-02-08 18:23:09 -0600
+Processing by ProfsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  Rendering profs/show.html.erb within layouts/application
+  Rendered profs/show.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 123ms (Views: 113.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/profs" for 127.0.0.1 at 2018-02-08 18:23:11 -0600
+Processing by ProfsController#index as HTML
+  Rendering profs/index.html.erb within layouts/application
+  [1m[36mProf Load (3.3ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  Rendered profs/index.html.erb within layouts/application (20.9ms)
+Completed 200 OK in 185ms (Views: 178.6ms | ActiveRecord: 3.3ms)
+
+
+Started GET "/idioms" for 127.0.0.1 at 2018-02-08 18:23:15 -0600
+Processing by IdiomsController#index as HTML
+  Rendering idioms/index.html.erb within layouts/application
+  [1m[36mIdiom Load (0.6ms)[0m  [1m[34mSELECT `idioms`.* FROM `idioms`[0m
+  Rendered idioms/index.html.erb within layouts/application (6.8ms)
+Completed 200 OK in 102ms (Views: 96.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/idioms/new" for 127.0.0.1 at 2018-02-08 18:23:17 -0600
+Processing by IdiomsController#new as HTML
+  Rendering idioms/new.html.erb within layouts/application
+  Rendered idioms/_form.html.erb (10.3ms)
+  Rendered idioms/new.html.erb within layouts/application (20.8ms)
+Completed 200 OK in 198ms (Views: 155.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/idioms" for 127.0.0.1 at 2018-02-08 18:23:33 -0600
+Processing by IdiomsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"jgjXw7Uiui2bpcecAgB10hit1P6tzYEYMc9NcVrINZpEDJzLpFtItg2VwjAuhfHUgCH6Dn1duzZjILIBbgMYIw==", "idiom"=>{"nivel"=>"PET-1", "semestre"=>"1", "estado"=>"Cursando"}, "commit"=>"Create Idiom"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (97.9ms)[0m  [1m[32mINSERT INTO `idioms` (`nivel`, `semestre`, `estado`, `created_at`, `updated_at`) VALUES ('PET-1', '1', 'Cursando', '2018-02-09 00:23:33', '2018-02-09 00:23:33')[0m
+  [1m[35m (138.3ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/idioms/1
+Completed 302 Found in 245ms (ActiveRecord: 236.5ms)
+
+
+Started GET "/idioms/1" for 127.0.0.1 at 2018-02-08 18:23:33 -0600
+Processing by IdiomsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mIdiom Load (1.1ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  Rendering idioms/show.html.erb within layouts/application
+  Rendered idioms/show.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 123ms (Views: 88.5ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/idioms" for 127.0.0.1 at 2018-02-08 18:23:35 -0600
+Processing by IdiomsController#index as HTML
+  Rendering idioms/index.html.erb within layouts/application
+  [1m[36mIdiom Load (0.5ms)[0m  [1m[34mSELECT `idioms`.* FROM `idioms`[0m
+  Rendered idioms/index.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 132ms (Views: 129.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-08 18:23:40 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.4ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  Rendered alums/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 114ms (Views: 111.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-08 18:23:42 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  Rendered alums/_form.html.erb (11.0ms)
+  Rendered alums/new.html.erb within layouts/application (22.3ms)
+Completed 200 OK in 145ms (Views: 143.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/alums" for 127.0.0.1 at 2018-02-08 18:24:14 -0600
+Processing by AlumsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"QjBSvjNW7V9bGY++73YT0br/eXxVN13sqJuMurxW+3RYIp2AhAshd49sGljH44bmUBXFeSNI7oNPxx7DtqDqVQ==", "alum"=>{"matricula"=>"2014020423", "nombre"=>"Cosijoeza", "apellidos"=>"Melchor Nolasco", "foto"=>"estudiante_30.jpg", "correo"=>"cosi.melchor@gmail.com", "prof_id"=>"1", "idiom_id"=>"1"}, "commit"=>"Create Alum"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mProf Load (1.2ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (3.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[35mSQL (78.2ms)[0m  [1m[32mINSERT INTO `alums` (`matricula`, `nombre`, `apellidos`, `foto`, `correo`, `prof_id`, `idiom_id`, `created_at`, `updated_at`) VALUES (2014020423, 'Cosijoeza', 'Melchor Nolasco', 'estudiante_30.jpg', 'cosi.melchor@gmail.com', 1, 1, '2018-02-09 00:24:14', '2018-02-09 00:24:14')[0m
+  [1m[35m (111.9ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/alums/1
+Completed 302 Found in 213ms (ActiveRecord: 195.3ms)
+
+
+Started GET "/alums/1" for 127.0.0.1 at 2018-02-08 18:24:14 -0600
+Processing by AlumsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAlum Load (5.1ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 1 LIMIT 1[0m
+  Rendering alums/show.html.erb within layouts/application
+  [1m[36mProf Load (3.2ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  Rendered alums/show.html.erb within layouts/application (8.5ms)
+Completed 200 OK in 144ms (Views: 112.8ms | ActiveRecord: 8.8ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-08 18:24:29 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.5ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (2.7ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (14.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  Rendered alums/index.html.erb within layouts/application (26.7ms)
+Completed 200 OK in 157ms (Views: 138.8ms | ActiveRecord: 17.2ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-08 18:28:35 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.5ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (2.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (3.5ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  Rendered alums/index.html.erb within layouts/application (17.4ms)
+Completed 200 OK in 123ms (Views: 115.2ms | ActiveRecord: 6.5ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-08 18:28:38 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  Rendered alums/_form.html.erb (81.0ms)
+  Rendered alums/new.html.erb within layouts/application (82.9ms)
+Completed 500 Internal Server Error in 91ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `empleado_id' for nil:NilClass):
+    38: 
+    39:    <div class="field">
+    40:     <%= form.label :prof_id %>
+    41:     <%= form.select :prof_id, options_from_collection_for_select(Prof.all, 'id', 'nombre', @tarea.empleado_id) %>
+    42:   </div>
+    43: 
+    44:    <div class="field">
+  
+app/views/alums/_form.html.erb:41:in `block in _app_views_alums__form_html_erb__3742726503897539248_47228461052540'
+app/views/alums/_form.html.erb:1:in `_app_views_alums__form_html_erb__3742726503897539248_47228461052540'
+app/views/alums/new.html.erb:3:in `_app_views_alums_new_html_erb__3613385309336639629_47228458844520'
+Started GET "/alums" for 127.0.0.1 at 2018-02-08 18:30:52 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (54.2ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (35.9ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  Rendered alums/index.html.erb within layouts/application (99.5ms)
+Completed 200 OK in 1138ms (Views: 1027.2ms | ActiveRecord: 90.7ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-08 18:30:57 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  Rendered alums/_form.html.erb (30.9ms)
+  Rendered alums/new.html.erb within layouts/application (35.3ms)
+Completed 500 Internal Server Error in 293ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `empleado_id' for nil:NilClass):
+    38: 
+    39:    <div class="field">
+    40:     <%= form.label :prof_id %>
+    41:     <%= form.select :prof_id, options_from_collection_for_select(Prof.all, 'id', 'nombre', @tarea.empleado_id) %>
+    42:   </div>
+    43: 
+    44:    <div class="field">
+  
+app/views/alums/_form.html.erb:41:in `block in _app_views_alums__form_html_erb__3742726503897539248_47228455870740'
+app/views/alums/_form.html.erb:1:in `_app_views_alums__form_html_erb__3742726503897539248_47228455870740'
+app/views/alums/new.html.erb:3:in `_app_views_alums_new_html_erb__3613385309336639629_47228456802180'
+Started GET "/alums" for 127.0.0.1 at 2018-02-08 18:32:05 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.5ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (0.5ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (2.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  Rendered alums/index.html.erb within layouts/application (20.6ms)
+Completed 200 OK in 150ms (Views: 145.2ms | ActiveRecord: 3.6ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-08 18:32:07 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  [1m[36mProf Load (0.5ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  [1m[36mIdiom Load (0.7ms)[0m  [1m[34mSELECT `idioms`.* FROM `idioms`[0m
+  Rendered alums/_form.html.erb (127.0ms)
+  Rendered alums/new.html.erb within layouts/application (128.6ms)
+Completed 200 OK in 221ms (Views: 218.4ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/alums" for 127.0.0.1 at 2018-02-08 18:33:16 -0600
+Processing by AlumsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"17XVFR/Xbe88ScD1LbZp1vRgQ/TtdXZIFk9R/wNyAWnNpxorqIqhx+g8VRMFI/zhHor/8ZsKxSfxE8OGCYQQSA==", "alum"=>{"matricula"=>"20120202", "nombre"=>"Juan Luis", "apellidos"=>"Martinez Aguilar", "foto"=>"estudiante_32.jpg", "correo"=>"juan@hotmail.com", "prof_id"=>"1", "idiom_id"=>"1"}, "commit"=>"Create Alum"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (2.3ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[35mSQL (120.5ms)[0m  [1m[32mINSERT INTO `alums` (`matricula`, `nombre`, `apellidos`, `foto`, `correo`, `prof_id`, `idiom_id`, `created_at`, `updated_at`) VALUES (20120202, 'Juan Luis', 'Martinez Aguilar', 'estudiante_32.jpg', 'juan@hotmail.com', 1, 1, '2018-02-09 00:33:16', '2018-02-09 00:33:16')[0m
+  [1m[35m (293.2ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/alums/2
+Completed 302 Found in 433ms (ActiveRecord: 416.8ms)
+
+
+Started GET "/alums/2" for 127.0.0.1 at 2018-02-08 18:33:17 -0600
+Processing by AlumsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mAlum Load (1.5ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 2 LIMIT 1[0m
+  Rendering alums/show.html.erb within layouts/application
+  [1m[36mProf Load (0.5ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.5ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  Rendered alums/show.html.erb within layouts/application (12.4ms)
+Completed 200 OK in 198ms (Views: 142.0ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-08 18:33:21 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.5ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (2.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (5.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.1ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (24.2ms)
+Completed 200 OK in 136ms (Views: 126.9ms | ActiveRecord: 7.5ms)
+
+
+Started GET "/estudiantes" for 127.0.0.1 at 2018-02-11 22:27:39 -0600
+  [1m[35m (61.0ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/estudiantes"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/alums" for 127.0.0.1 at 2018-02-11 22:29:15 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[36mAlum Load (44.9ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (279.3ms)
+Completed 200 OK in 1229ms (Views: 1100.4ms | ActiveRecord: 71.7ms)
+
+
+Started GET "/mat" for 127.0.0.1 at 2018-02-11 22:29:44 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/mat"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/mats" for 127.0.0.1 at 2018-02-11 22:29:46 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (28.1ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (38.9ms)
+Completed 200 OK in 208ms (Views: 133.4ms | ActiveRecord: 29.3ms)
+
+
+Started GET "/profs" for 127.0.0.1 at 2018-02-11 22:30:16 -0600
+Processing by ProfsController#index as HTML
+  Rendering profs/index.html.erb within layouts/application
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  Rendered profs/index.html.erb within layouts/application (7.0ms)
+Completed 200 OK in 101ms (Views: 84.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/estudiantes" for 127.0.0.1 at 2018-02-11 22:30:28 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/estudiantes"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/alums" for 127.0.0.1 at 2018-02-11 22:30:37 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.5ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (4.5ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (34.9ms)
+Completed 200 OK in 124ms (Views: 116.9ms | ActiveRecord: 5.7ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-11 22:36:26 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.6ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (0.5ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (2.3ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (24.4ms)
+Completed 200 OK in 98ms (Views: 93.5ms | ActiveRecord: 3.5ms)
+
+
+Started GET "/profs" for 127.0.0.1 at 2018-02-11 22:36:28 -0600
+Processing by ProfsController#index as HTML
+  Rendering profs/index.html.erb within layouts/application
+  [1m[36mProf Load (1.1ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  Rendered profs/index.html.erb within layouts/application (7.9ms)
+Completed 200 OK in 79ms (Views: 76.0ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-11 22:37:10 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (2.3ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (2.7ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (1.8ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (30.5ms)
+Completed 200 OK in 127ms (Views: 118.4ms | ActiveRecord: 6.9ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-11 22:37:13 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  [1m[36mProf Load (0.5ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  [1m[36mIdiom Load (3.5ms)[0m  [1m[34mSELECT `idioms`.* FROM `idioms`[0m
+  Rendered alums/_form.html.erb (142.4ms)
+  Rendered alums/new.html.erb within layouts/application (169.8ms)
+Completed 200 OK in 273ms (Views: 255.7ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/mats" for 127.0.0.1 at 2018-02-11 22:37:17 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (2.0ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (5.8ms)
+Completed 200 OK in 107ms (Views: 103.7ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/mats/new" for 127.0.0.1 at 2018-02-11 22:37:18 -0600
+Processing by MatsController#new as HTML
+  Rendering mats/new.html.erb within layouts/application
+  Rendered mats/_form.html.erb (10.7ms)
+  Rendered mats/new.html.erb within layouts/application (62.1ms)
+Completed 200 OK in 194ms (Views: 123.8ms | ActiveRecord: 1.7ms)
+
+
+Started POST "/mats" for 127.0.0.1 at 2018-02-11 22:37:52 -0600
+Processing by MatsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ipZYfJ47mtzWr1KWvNXUvZ7ByGXU+Aw6rxTw8Fx1joPRNMn3Md0Fdzot+mImcQWS8rk3zgHFhvvX3v0dEUHWOA==", "mat"=>{"nombre"=>"Ecuaciones diferenciales", "calif_1"=>"5", "calif_2"=>"4", "calif_3"=>"3", "final"=>"0", "ext_1"=>"0", "ext_2"=>"0", "esp"=>"0", "semestre"=>"3"}, "commit"=>"Create Mat"}
+  [1m[35m (141.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (129.7ms)[0m  [1m[32mINSERT INTO `mats` (`nombre`, `calif_1`, `calif_2`, `calif_3`, `final`, `ext_1`, `ext_2`, `esp`, `semestre`, `created_at`, `updated_at`) VALUES ('Ecuaciones diferenciales', 5.0, 4.0, 3.0, 0.0, 0.0, 0.0, 0.0, '3', '2018-02-12 04:37:52', '2018-02-12 04:37:52')[0m
+  [1m[35m (78.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/mats/1
+Completed 302 Found in 358ms (ActiveRecord: 349.9ms)
+
+
+Started GET "/mats/1" for 127.0.0.1 at 2018-02-11 22:37:52 -0600
+Processing by MatsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMat Load (0.6ms)[0m  [1m[34mSELECT  `mats`.* FROM `mats` WHERE `mats`.`id` = 1 LIMIT 1[0m
+  Rendering mats/show.html.erb within layouts/application
+  Rendered mats/show.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 120ms (Views: 86.1ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/mats" for 127.0.0.1 at 2018-02-11 22:37:54 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (0.8ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (7.7ms)
+Completed 200 OK in 109ms (Views: 107.2ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/mats/new" for 127.0.0.1 at 2018-02-11 22:37:57 -0600
+Processing by MatsController#new as HTML
+  Rendering mats/new.html.erb within layouts/application
+  Rendered mats/_form.html.erb (19.2ms)
+  Rendered mats/new.html.erb within layouts/application (21.0ms)
+Completed 200 OK in 108ms (Views: 104.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/mats" for 127.0.0.1 at 2018-02-11 22:38:10 -0600
+Processing by MatsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"+AC+yVOdWtqWosv1nK02uaGHgCcMi0m54gCnBOU1Oeejoi9C/HvFcXogYwEGCeeWzf9/jNm2w3iayqrpqAFhXA==", "mat"=>{"nombre"=>"Calculo integral", "calif_1"=>"6", "calif_2"=>"3", "calif_3"=>"4", "final"=>"0", "ext_1"=>"0", "ext_2"=>"0", "esp"=>"0", "semestre"=>"0"}, "commit"=>"Create Mat"}
+  [1m[35m (2.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (3.2ms)[0m  [1m[32mINSERT INTO `mats` (`nombre`, `calif_1`, `calif_2`, `calif_3`, `final`, `ext_1`, `ext_2`, `esp`, `semestre`, `created_at`, `updated_at`) VALUES ('Calculo integral', 6.0, 3.0, 4.0, 0.0, 0.0, 0.0, 0.0, '0', '2018-02-12 04:38:10', '2018-02-12 04:38:10')[0m
+  [1m[35m (144.1ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/mats/2
+Completed 302 Found in 159ms (ActiveRecord: 150.1ms)
+
+
+Started GET "/mats/2" for 127.0.0.1 at 2018-02-11 22:38:11 -0600
+Processing by MatsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mMat Load (0.5ms)[0m  [1m[34mSELECT  `mats`.* FROM `mats` WHERE `mats`.`id` = 2 LIMIT 1[0m
+  Rendering mats/show.html.erb within layouts/application
+  Rendered mats/show.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 154ms (Views: 149.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/mats" for 127.0.0.1 at 2018-02-11 22:38:13 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (1.4ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (8.5ms)
+Completed 200 OK in 130ms (Views: 127.3ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/profs" for 127.0.0.1 at 2018-02-11 22:38:49 -0600
+Processing by ProfsController#index as HTML
+  Rendering profs/index.html.erb within layouts/application
+  [1m[36mProf Load (0.5ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  Rendered profs/index.html.erb within layouts/application (6.8ms)
+Completed 200 OK in 119ms (Views: 114.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/entrevista" for 127.0.0.1 at 2018-02-11 22:39:28 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/entrevista"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/entrevista" for 127.0.0.1 at 2018-02-11 22:40:01 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/entrevista"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/entrevista" for 127.0.0.1 at 2018-02-11 22:40:05 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/entrevista"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/ents" for 127.0.0.1 at 2018-02-11 22:40:10 -0600
+Processing by EntsController#index as HTML
+  Rendering ents/index.html.erb within layouts/application
+  [1m[36mEnt Load (0.7ms)[0m  [1m[34mSELECT `ents`.* FROM `ents`[0m
+  Rendered ents/index.html.erb within layouts/application (23.4ms)
+Completed 200 OK in 123ms (Views: 68.0ms | ActiveRecord: 17.1ms)
+
+
+Started GET "/ents/new" for 127.0.0.1 at 2018-02-11 22:40:15 -0600
+Processing by EntsController#new as HTML
+  Rendering ents/new.html.erb within layouts/application
+  Rendered ents/_form.html.erb (37.7ms)
+  Rendered ents/new.html.erb within layouts/application (42.3ms)
+Completed 200 OK in 160ms (Views: 113.8ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/alum_mats" for 127.0.0.1 at 2018-02-11 22:44:25 -0600
+Processing by AlumMatsController#index as HTML
+  Rendering alum_mats/index.html.erb within layouts/application
+  [1m[36mAlumMat Load (0.6ms)[0m  [1m[34mSELECT `alum_mats`.* FROM `alum_mats`[0m
+  Rendered alum_mats/index.html.erb within layouts/application (8.5ms)
+Completed 200 OK in 127ms (Views: 81.4ms | ActiveRecord: 2.7ms)
+
+
+Started GET "/alum_mats/new" for 127.0.0.1 at 2018-02-11 22:44:27 -0600
+Processing by AlumMatsController#new as HTML
+  Rendering alum_mats/new.html.erb within layouts/application
+  Rendered alum_mats/_form.html.erb (8.1ms)
+  Rendered alum_mats/new.html.erb within layouts/application (12.9ms)
+Completed 200 OK in 126ms (Views: 101.6ms | ActiveRecord: 1.4ms)
+
+
+Started POST "/alum_mats" for 127.0.0.1 at 2018-02-11 22:44:38 -0600
+Processing by AlumMatsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"N2U85fZ8/9gQZwAxFg+QzxSqUdgzjRX7u0RkAz+4pRS7SBTJkzVCa2rPKzxKr4kBI9zwYP4wAAidH/d19oqVqw==", "alum_mat"=>{"alum_id"=>"1", "mat_id"=>"1"}, "commit"=>"Create Alum mat"}
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mAlum Load (2.8ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 1 LIMIT 1[0m
+  [1m[36mMat Load (62.1ms)[0m  [1m[34mSELECT  `mats`.* FROM `mats` WHERE `mats`.`id` = 1 LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO `alum_mats` (`alum_id`, `mat_id`, `created_at`, `updated_at`) VALUES (1, 1, '2018-02-12 04:44:38', '2018-02-12 04:44:38')[0m
+  [1m[35m (76.7ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/alum_mats/1
+Completed 302 Found in 163ms (ActiveRecord: 142.9ms)
+
+
+Started GET "/alum_mats/1" for 127.0.0.1 at 2018-02-11 22:44:38 -0600
+Processing by AlumMatsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAlumMat Load (0.6ms)[0m  [1m[34mSELECT  `alum_mats`.* FROM `alum_mats` WHERE `alum_mats`.`id` = 1 LIMIT 1[0m
+  Rendering alum_mats/show.html.erb within layouts/application
+  [1m[36mAlum Load (0.6ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 1 LIMIT 1[0m
+  [1m[36mMat Load (0.5ms)[0m  [1m[34mSELECT  `mats`.* FROM `mats` WHERE `mats`.`id` = 1 LIMIT 1[0m
+  Rendered alum_mats/show.html.erb within layouts/application (7.4ms)
+Completed 200 OK in 151ms (Views: 71.4ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/alum_mats" for 127.0.0.1 at 2018-02-11 22:44:40 -0600
+Processing by AlumMatsController#index as HTML
+  Rendering alum_mats/index.html.erb within layouts/application
+  [1m[36mAlumMat Load (1.4ms)[0m  [1m[34mSELECT `alum_mats`.* FROM `alum_mats`[0m
+  [1m[36mAlum Load (0.6ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 1 LIMIT 1[0m
+  [1m[36mMat Load (0.6ms)[0m  [1m[34mSELECT  `mats`.* FROM `mats` WHERE `mats`.`id` = 1 LIMIT 1[0m
+  Rendered alum_mats/index.html.erb within layouts/application (20.0ms)
+Completed 200 OK in 121ms (Views: 116.9ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/ents" for 127.0.0.1 at 2018-02-11 23:58:52 -0600
+Processing by EntsController#index as HTML
+  Rendering ents/index.html.erb within layouts/application
+  [1m[36mEnt Load (2.6ms)[0m  [1m[34mSELECT `ents`.* FROM `ents`[0m
+  Rendered ents/index.html.erb within layouts/application (7.2ms)
+Completed 200 OK in 100ms (Views: 95.5ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/ents" for 127.0.0.1 at 2018-02-12 00:09:37 -0600
+Processing by EntsController#index as HTML
+  Rendering ents/index.html.erb within layouts/application
+  [1m[36mEnt Load (0.5ms)[0m  [1m[34mSELECT `ents`.* FROM `ents`[0m
+  Rendered ents/index.html.erb within layouts/application (3.4ms)
+Completed 200 OK in 104ms (Views: 100.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/ents" for 127.0.0.1 at 2018-02-12 00:27:56 -0600
+Processing by EntsController#index as HTML
+  Rendering ents/index.html.erb within layouts/application
+  [1m[36mEnt Load (1465.0ms)[0m  [1m[34mSELECT `ents`.* FROM `ents`[0m
+  Rendered ents/index.html.erb within layouts/application (13197.9ms)
+Completed 200 OK in 25905ms (Views: 22603.2ms | ActiveRecord: 1465.0ms)
+
+
+Started GET "/mats" for 127.0.0.1 at 2018-02-12 00:31:49 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (0.9ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (1075.2ms)
+Completed 500 Internal Server Error in 1439ms (ActiveRecord: 0.9ms)
+
+
+  
+ActionView::Template::Error (missing attribute: calif_1):
+    22:     <% @mats.each do |mat| %>
+    23:       <tr>
+    24:         <td><%= mat.nombre %></td>
+    25:         <td><%= mat.calif_1 %></td>
+    26:         <td><%= mat.calif_2 %></td>
+    27:         <td><%= mat.calif_3 %></td>
+    28:         <td><%= mat.final %></td>
+  
+app/views/mats/index.html.erb:25:in `block in _app_views_mats_index_html_erb__4190490419715579084_70273691324180'
+app/views/mats/index.html.erb:22:in `_app_views_mats_index_html_erb__4190490419715579084_70273691324180'
+Started GET "/mats" for 127.0.0.1 at 2018-02-12 00:31:59 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (0.7ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (72.6ms)
+Completed 500 Internal Server Error in 142ms (ActiveRecord: 0.7ms)
+
+
+  
+ActionView::Template::Error (missing attribute: calif_1):
+    22:     <% @mats.each do |mat| %>
+    23:       <tr>
+    24:         <td><%= mat.nombre %></td>
+    25:         <td><%= mat.calif_1 %></td>
+    26:         <td><%= mat.calif_2 %></td>
+    27:         <td><%= mat.calif_3 %></td>
+    28:         <td><%= mat.final %></td>
+  
+app/views/mats/index.html.erb:25:in `block in _app_views_mats_index_html_erb__4190490419715579084_70273854421760'
+app/views/mats/index.html.erb:22:in `_app_views_mats_index_html_erb__4190490419715579084_70273854421760'
+Started GET "/mats" for 127.0.0.1 at 2018-02-12 00:32:03 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (0.5ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (9.5ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.5ms)
+
+
+  
+ActionView::Template::Error (missing attribute: calif_1):
+    22:     <% @mats.each do |mat| %>
+    23:       <tr>
+    24:         <td><%= mat.nombre %></td>
+    25:         <td><%= mat.calif_1 %></td>
+    26:         <td><%= mat.calif_2 %></td>
+    27:         <td><%= mat.calif_3 %></td>
+    28:         <td><%= mat.final %></td>
+  
+app/views/mats/index.html.erb:25:in `block in _app_views_mats_index_html_erb__4190490419715579084_70273694271240'
+app/views/mats/index.html.erb:22:in `_app_views_mats_index_html_erb__4190490419715579084_70273694271240'
+Started GET "/mats" for 127.0.0.1 at 2018-02-12 00:33:35 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (0.6ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (379.0ms)
+Completed 200 OK in 583ms (Views: 580.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/mats/new" for 127.0.0.1 at 2018-02-12 00:33:40 -0600
+Processing by MatsController#new as HTML
+  Rendering mats/new.html.erb within layouts/application
+  Rendered mats/_form.html.erb (773.3ms)
+  Rendered mats/new.html.erb within layouts/application (785.7ms)
+Completed 200 OK in 946ms (Views: 903.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/mats" for 127.0.0.1 at 2018-02-12 00:34:02 -0600
+Processing by MatsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Dx1ZdJHLIJ0YGP5Qy0R3eK4beZoxWe1UKlR3ARbRb/tUv8j/Pi2/NvSaVqRR4KZXwmOGMeRkZ5VSnnrsW+U3QA==", "mat"=>{"nombre"=>"Matematicas discretas", "calif_1"=>"", "calif_2"=>"", "calif_3"=>"", "final"=>"", "ext_1"=>"", "ext_2"=>"", "esp"=>"", "semestre"=>"2018"}, "commit"=>"Create Mat"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (97.0ms)[0m  [1m[32mINSERT INTO `mats` (`nombre`, `semestre`, `created_at`, `updated_at`) VALUES ('Matematicas discretas', '2018', '2018-02-12 06:34:02', '2018-02-12 06:34:02')[0m
+  [1m[35m (73.1ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/mats/3
+Completed 302 Found in 905ms (ActiveRecord: 170.5ms)
+
+
+Started GET "/mats/3" for 127.0.0.1 at 2018-02-12 00:34:03 -0600
+Processing by MatsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mMat Load (46.2ms)[0m  [1m[34mSELECT  `mats`.* FROM `mats` WHERE `mats`.`id` = 3 LIMIT 1[0m
+  Rendering mats/show.html.erb within layouts/application
+  Rendered mats/show.html.erb within layouts/application (8.7ms)
+Completed 500 Internal Server Error in 98ms (ActiveRecord: 46.2ms)
+
+
+  
+ActionView::Template::Error (missing attribute: calif_1):
+     7: 
+     8: <p>
+     9:   <strong>Calif 1:</strong>
+    10:   <%= @mat.calif_1 %>
+    11: </p>
+    12: 
+    13: <p>
+  
+app/views/mats/show.html.erb:10:in `_app_views_mats_show_html_erb___3553983587952314242_70273852863480'
+Started GET "/mats/3" for 127.0.0.1 at 2018-02-12 00:34:37 -0600
+Processing by MatsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mMat Load (0.6ms)[0m  [1m[34mSELECT  `mats`.* FROM `mats` WHERE `mats`.`id` = 3 LIMIT 1[0m
+  Rendering mats/show.html.erb within layouts/application
+  Rendered mats/show.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 102ms (Views: 99.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/mats" for 127.0.0.1 at 2018-02-12 00:34:40 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (0.5ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 138ms (Views: 107.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/mats/new" for 127.0.0.1 at 2018-02-12 00:34:42 -0600
+Processing by MatsController#new as HTML
+  Rendering mats/new.html.erb within layouts/application
+  Rendered mats/_form.html.erb (44.1ms)
+  Rendered mats/new.html.erb within layouts/application (47.8ms)
+Completed 200 OK in 148ms (Views: 146.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/mats/new" for 127.0.0.1 at 2018-02-12 00:37:35 -0600
+Processing by MatsController#new as HTML
+  Rendering mats/new.html.erb within layouts/application
+  Rendered mats/_form.html.erb (14.5ms)
+  Rendered mats/new.html.erb within layouts/application (31.7ms)
+Completed 200 OK in 128ms (Views: 125.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/mats/new" for 127.0.0.1 at 2018-02-12 00:39:30 -0600
+Processing by MatsController#new as HTML
+  Rendering mats/new.html.erb within layouts/application
+  Rendered mats/_form.html.erb (7.5ms)
+  Rendered mats/new.html.erb within layouts/application (11.9ms)
+Completed 200 OK in 123ms (Views: 121.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/mats" for 127.0.0.1 at 2018-02-12 00:39:34 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (0.5ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (99.7ms)
+Completed 200 OK in 189ms (Views: 185.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/mats" for 127.0.0.1 at 2018-02-12 00:40:39 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (1.8ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 112ms (Views: 108.7ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/mats/1/edit" for 127.0.0.1 at 2018-02-12 00:40:42 -0600
+Processing by MatsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMat Load (0.5ms)[0m  [1m[34mSELECT  `mats`.* FROM `mats` WHERE `mats`.`id` = 1 LIMIT 1[0m
+  Rendering mats/edit.html.erb within layouts/application
+  Rendered mats/_form.html.erb (66.7ms)
+  Rendered mats/edit.html.erb within layouts/application (68.7ms)
+Completed 200 OK in 154ms (Views: 150.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/mats/1/edit" for 127.0.0.1 at 2018-02-12 00:42:13 -0600
+Processing by MatsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMat Load (0.6ms)[0m  [1m[34mSELECT  `mats`.* FROM `mats` WHERE `mats`.`id` = 1 LIMIT 1[0m
+  Rendering mats/edit.html.erb within layouts/application
+  Rendered mats/_form.html.erb (37.5ms)
+  Rendered mats/edit.html.erb within layouts/application (39.6ms)
+Completed 200 OK in 136ms (Views: 128.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/mats" for 127.0.0.1 at 2018-02-12 00:42:15 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (0.5ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (7.4ms)
+Completed 200 OK in 82ms (Views: 76.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/mats/new" for 127.0.0.1 at 2018-02-12 00:42:17 -0600
+Processing by MatsController#new as HTML
+  Rendering mats/new.html.erb within layouts/application
+  Rendered mats/_form.html.erb (35.3ms)
+  Rendered mats/new.html.erb within layouts/application (39.1ms)
+Completed 200 OK in 93ms (Views: 88.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 00:42:34 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.6ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (221.4ms)
+Completed 200 OK in 373ms (Views: 348.5ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 01:04:37 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (1172.7ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (260.2ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (21.7ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (6.7ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (3520.4ms)
+Completed 200 OK in 15157ms (Views: 13108.3ms | ActiveRecord: 1461.4ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 01:05:29 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (44.8ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (5.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (1.9ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (407.6ms)
+Completed 200 OK in 3542ms (Views: 3407.9ms | ActiveRecord: 51.7ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 01:05:41 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  [1m[36mProf Load (8.9ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  [1m[36mIdiom Load (1.1ms)[0m  [1m[34mSELECT `idioms`.* FROM `idioms`[0m
+  Rendered alums/_form.html.erb (459.1ms)
+  Rendered alums/new.html.erb within layouts/application (496.4ms)
+Completed 200 OK in 3538ms (Views: 3497.6ms | ActiveRecord: 10.0ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:15:09 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (75.2ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (1000.9ms)
+Completed 200 OK in 3009ms (Views: 1892.5ms | ActiveRecord: 566.6ms)
+
+
+Started GET "/pruebas/new" for 127.0.0.1 at 2018-02-12 01:15:22 -0600
+Processing by PruebasController#new as HTML
+  Rendering pruebas/new.html.erb within layouts/application
+  Rendered pruebas/_form.html.erb (227.4ms)
+  Rendered pruebas/new.html.erb within layouts/application (230.2ms)
+Completed 200 OK in 1846ms (Views: 1343.1ms | ActiveRecord: 162.7ms)
+
+
+Started POST "/pruebas" for 127.0.0.1 at 2018-02-12 01:15:30 -0600
+Processing by PruebasController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Ta2z6IUZ4L6ygFS/0eacVnyBEuhKg+s5qR8ir73nj+TkncEiMYUfho3cR8GVsn14TlcpbnoYj6yZMzLqgK0Y4A==", "prueba"=>{"nombre"=>"primera"}, "commit"=>"Create Prueba"}
+  [1m[35m (11.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (127.5ms)[0m  [1m[32mINSERT INTO `pruebas` (`nombre`, `created_at`, `updated_at`) VALUES ('primera', '2018-02-12 07:15:30', '2018-02-12 07:15:30')[0m
+  [1m[35m (396.0ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/pruebas/1
+Completed 302 Found in 735ms (ActiveRecord: 534.6ms)
+
+
+Started GET "/pruebas/1" for 127.0.0.1 at 2018-02-12 01:15:31 -0600
+Processing by PruebasController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPrueba Load (21.0ms)[0m  [1m[34mSELECT  `pruebas`.* FROM `pruebas` WHERE `pruebas`.`id` = 1 LIMIT 1[0m
+  Rendering pruebas/show.html.erb within layouts/application
+  Rendered pruebas/show.html.erb within layouts/application (54.1ms)
+Completed 200 OK in 609ms (Views: 509.0ms | ActiveRecord: 21.0ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:15:37 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (2.1ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (21.3ms)
+Completed 200 OK in 166ms (Views: 162.2ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/pruebas/1" for 127.0.0.1 at 2018-02-12 01:15:41 -0600
+Processing by PruebasController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT  `pruebas`.* FROM `pruebas` WHERE `pruebas`.`id` = 1 LIMIT 1[0m
+  Rendering pruebas/show.html.erb within layouts/application
+  Rendered pruebas/show.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 152ms (Views: 120.0ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:15:43 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.6ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (25.5ms)
+Completed 200 OK in 230ms (Views: 220.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:16:39 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 135ms (Views: 130.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas/new" for 127.0.0.1 at 2018-02-12 01:16:44 -0600
+Processing by PruebasController#new as HTML
+  Rendering pruebas/new.html.erb within layouts/application
+  Rendered pruebas/_form.html.erb (11.9ms)
+  Rendered pruebas/new.html.erb within layouts/application (50.1ms)
+Completed 200 OK in 321ms (Views: 317.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:16:46 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.7ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 128ms (Views: 122.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/pruebas/new" for 127.0.0.1 at 2018-02-12 01:17:20 -0600
+Processing by PruebasController#new as HTML
+  Rendering pruebas/new.html.erb within layouts/application
+  Rendered pruebas/_form.html.erb (2.8ms)
+  Rendered pruebas/new.html.erb within layouts/application (9.2ms)
+Completed 200 OK in 126ms (Views: 121.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:17:23 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (7.9ms)
+Completed 200 OK in 140ms (Views: 134.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:20:17 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (1.9ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (7.6ms)
+Completed 200 OK in 130ms (Views: 126.1ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:22:09 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.7ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (47.7ms)
+Completed 200 OK in 170ms (Views: 165.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:26:01 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.8ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (7.9ms)
+Completed 200 OK in 169ms (Views: 165.5ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:26:36 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (7.0ms)
+Completed 200 OK in 115ms (Views: 110.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:27:15 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 127ms (Views: 125.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:27:34 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (49.2ms)
+Completed 200 OK in 224ms (Views: 221.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:28:24 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (7.2ms)
+Completed 200 OK in 138ms (Views: 133.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas/new" for 127.0.0.1 at 2018-02-12 01:28:34 -0600
+Processing by PruebasController#new as HTML
+  Rendering pruebas/new.html.erb within layouts/application
+  Rendered pruebas/_form.html.erb (7.7ms)
+  Rendered pruebas/new.html.erb within layouts/application (11.0ms)
+Completed 200 OK in 111ms (Views: 107.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:31:20 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (10.0ms)
+Completed 200 OK in 145ms (Views: 142.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/localhost/tutorias/profesor.php" for 127.0.0.1 at 2018-02-12 01:31:23 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/localhost/tutorias/profesor.php"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/localhost/tutorias/profesor.php" for 127.0.0.1 at 2018-02-12 01:31:43 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/localhost/tutorias/profesor.php"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 01:31:48 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (6.5ms)
+Completed 200 OK in 113ms (Views: 111.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 01:32:49 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.5ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (3.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (30.6ms)
+Completed 200 OK in 171ms (Views: 140.9ms | ActiveRecord: 4.8ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 01:35:46 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (1.4ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (3.5ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (29.6ms)
+Completed 200 OK in 179ms (Views: 169.6ms | ActiveRecord: 5.5ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 01:35:55 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.8ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (1.5ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (52.9ms)
+Completed 200 OK in 177ms (Views: 170.6ms | ActiveRecord: 2.9ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 01:35:58 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  [1m[36mProf Load (0.9ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  [1m[36mIdiom Load (1.3ms)[0m  [1m[34mSELECT `idioms`.* FROM `idioms`[0m
+  Rendered alums/_form.html.erb (33.6ms)
+  Rendered alums/new.html.erb within layouts/application (37.3ms)
+Completed 200 OK in 174ms (Views: 168.2ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 01:36:03 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.5ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (1.3ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (5.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (27.8ms)
+Completed 200 OK in 168ms (Views: 160.0ms | ActiveRecord: 6.9ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 01:40:13 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (1.3ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.7ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (30.5ms)
+Completed 200 OK in 8068ms (Views: 8063.5ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 01:43:34 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (1.4ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (0.8ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (2.1ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (30.5ms)
+Completed 200 OK in 31757ms (Views: 31748.1ms | ActiveRecord: 4.4ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 01:46:50 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.7ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (2.8ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (1.5ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (29.5ms)
+Completed 200 OK in 172ms (Views: 165.3ms | ActiveRecord: 5.1ms)
+
+
+Started GET "/mats" for 127.0.0.1 at 2018-02-12 01:46:56 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (80.8ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (87.0ms)
+Completed 200 OK in 302ms (Views: 216.2ms | ActiveRecord: 80.8ms)
+
+
+Started GET "/profs" for 127.0.0.1 at 2018-02-12 01:47:03 -0600
+Processing by ProfsController#index as HTML
+  Rendering profs/index.html.erb within layouts/application
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  Rendered profs/index.html.erb within layouts/application (8.0ms)
+Completed 200 OK in 173ms (Views: 168.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/profs" for 127.0.0.1 at 2018-02-12 01:47:10 -0600
+Processing by ProfsController#index as HTML
+  Rendering profs/index.html.erb within layouts/application
+  [1m[36mProf Load (2.0ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  Rendered profs/index.html.erb within layouts/application (7.7ms)
+Completed 200 OK in 214ms (Views: 210.3ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 01:47:17 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.5ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (4.5ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (2.7ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (29.6ms)
+Completed 200 OK in 296ms (Views: 286.8ms | ActiveRecord: 7.8ms)
+
+
+Started GET "/profs" for 127.0.0.1 at 2018-02-12 01:59:31 -0600
+Processing by ProfsController#index as HTML
+  Rendering profs/index.html.erb within layouts/application
+  [1m[36mProf Load (0.5ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  Rendered profs/index.html.erb within layouts/application (29.9ms)
+Completed 200 OK in 535ms (Views: 484.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/mats" for 127.0.0.1 at 2018-02-12 02:06:34 -0600
+Processing by MatsController#index as HTML
+  Rendering mats/index.html.erb within layouts/application
+  [1m[36mMat Load (31.3ms)[0m  [1m[34mSELECT `mats`.* FROM `mats`[0m
+  Rendered mats/index.html.erb within layouts/application (74.6ms)
+Completed 200 OK in 265ms (Views: 215.8ms | ActiveRecord: 31.3ms)
+
+
+Started GET "/mats/new" for 127.0.0.1 at 2018-02-12 02:06:37 -0600
+Processing by MatsController#new as HTML
+  Rendering mats/new.html.erb within layouts/application
+  Rendered mats/_form.html.erb (9.3ms)
+  Rendered mats/new.html.erb within layouts/application (15.5ms)
+Completed 200 OK in 260ms (Views: 229.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 03:00:54 -0600
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 03:00:57 -0600
+Processing by AlumsController#index as HTML
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (1080.0ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mAlum Load (1225.2ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (139.4ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mProf Load (217.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (75.9ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (365.3ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (9.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (87.9ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (16194.1ms)
+  Rendered alums/index.html.erb within layouts/application (16125.0ms)
+Completed 500 Internal Server Error in 32186ms (ActiveRecord: 1808.2ms)
+
+
+  
+ActionView::Template::Error (can't add a new key into hash during iteration):
+    4:     <title>Sistema de tutorias</title>
+    5:     <%= csrf_meta_tags %>
+    6: 
+    7:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    8:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    9:   </head>
+   10: 
+  
+app/views/layouts/application.html.erb:7:in `_app_views_layouts_application_html_erb___110885837401596781_70273867563400'
+Completed 200 OK in 46533ms (Views: 40872.0ms | ActiveRecord: 1392.2ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:01:59 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  [1m[36mProf Load (43.3ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  [1m[36mIdiom Load (11.5ms)[0m  [1m[34mSELECT `idioms`.* FROM `idioms`[0m
+  Rendered alums/_form.html.erb (3781.4ms)
+  Rendered alums/new.html.erb within layouts/application (4238.8ms)
+Completed 200 OK in 12660ms (Views: 11849.8ms | ActiveRecord: 54.7ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:21:06 -0600
+Processing by AlumsController#new as HTML
+Completed 500 Internal Server Error in 680ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Alum::ImageUploader):
+  
+app/models/alum.rb:4:in `<class:Alum>'
+app/models/alum.rb:1:in `<top (required)>'
+app/controllers/alums_controller.rb:17:in `new'
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:24:13 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  Rendered alums/_form.html.erb (156.1ms)
+  Rendered alums/new.html.erb within layouts/application (172.5ms)
+Completed 200 OK in 11838ms (Views: 8724.4ms | ActiveRecord: 1201.8ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:30:52 -0600
+Processing by AlumsController#new as HTML
+Completed 500 Internal Server Error in 170ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Alum::ImageUploader):
+  
+app/models/alum.rb:4:in `<class:Alum>'
+app/models/alum.rb:1:in `<top (required)>'
+app/controllers/alums_controller.rb:17:in `new'
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:34:01 -0600
+Processing by AlumsController#new as HTML
+Completed 500 Internal Server Error in 66ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Alum::ImageUploader):
+  
+app/models/alum.rb:4:in `<class:Alum>'
+app/models/alum.rb:1:in `<top (required)>'
+app/controllers/alums_controller.rb:17:in `new'
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:36:48 -0600
+Processing by AlumsController#new as HTML
+Completed 500 Internal Server Error in 25ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Alum::ImageUploader):
+  
+app/models/alum.rb:4:in `<class:Alum>'
+app/models/alum.rb:1:in `<top (required)>'
+app/controllers/alums_controller.rb:17:in `new'
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:39:01 -0600
+Processing by AlumsController#new as HTML
+Completed 500 Internal Server Error in 1106ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Alum::ImageUploader):
+  
+app/models/alum.rb:4:in `<class:Alum>'
+app/models/alum.rb:1:in `<top (required)>'
+app/controllers/alums_controller.rb:17:in `new'
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:40:02 -0600
+Processing by AlumsController#new as HTML
+Completed 500 Internal Server Error in 26ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Alum::ImageUploader):
+  
+app/models/alum.rb:4:in `<class:Alum>'
+app/models/alum.rb:1:in `<top (required)>'
+app/controllers/alums_controller.rb:17:in `new'
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:40:13 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  Rendered alums/_form.html.erb (516.2ms)
+  Rendered alums/new.html.erb within layouts/application (530.5ms)
+Completed 200 OK in 2814ms (Views: 2114.9ms | ActiveRecord: 551.9ms)
+
+
+Started POST "/alums" for 127.0.0.1 at 2018-02-12 03:41:30 -0600
+Processing by AlumsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"C4VMtGrTk0lKvN6TwOEtOOFILl2CGHsIgsE4yQUQm1Y8XZbMcDjtCGzlbaNMKzzI+dSM+R/Peh3rJ9l1OhpDrw==", "alum"=>{"matricula"=>"2014020826", "nombre"=>"Dua", "apellidos"=>"Lipa", "foto"=>#<ActionDispatch::Http::UploadedFile:0x00007fd3d1053618 @tempfile=#<Tempfile:/tmp/RackMultipart20180212-4886-hvy88w.jpg>, @original_filename="dua_lipa.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"alum[foto]\"; filename=\"dua_lipa.jpg\"\r\nContent-Type: image/jpeg\r\n">, "correo"=>"dua_lipa@gmail.com", "prof_id"=>"1", "idiom_id"=>"1"}, "commit"=>"Create Alum"}
+  [1m[35m (15.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mProf Load (27.2ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.9ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[35mSQL (288.0ms)[0m  [1m[32mINSERT INTO `alums` (`matricula`, `nombre`, `apellidos`, `foto`, `correo`, `prof_id`, `idiom_id`, `created_at`, `updated_at`) VALUES (2014020826, 'Dua', 'Lipa', '#<ActionDispatch::Http::UploadedFile:0x00007fd3d1053618>', 'dua_lipa@gmail.com', 1, 1, '2018-02-12 09:41:31', '2018-02-12 09:41:31')[0m
+  [1m[35m (167.5ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/alums/3
+Completed 302 Found in 1261ms (ActiveRecord: 615.2ms)
+
+
+Started GET "/alums/3" for 127.0.0.1 at 2018-02-12 03:41:31 -0600
+Processing by AlumsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mAlum Load (1.0ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 3 LIMIT 1[0m
+  Rendering alums/show.html.erb within layouts/application
+  Rendered alums/show.html.erb within layouts/application (92.6ms)
+Completed 500 Internal Server Error in 149ms (ActiveRecord: 1.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `image' for nil:NilClass):
+    27: 
+    28: <p>
+    29:   <strong>Prof:</strong>
+    30:   <%= image_tag @product.image.thumb.url %>
+    31: </p>
+    32: 
+    33: <p>
+  
+app/views/alums/show.html.erb:30:in `_app_views_alums_show_html_erb___132867233669949372_70273863503360'
+Started GET "/alums/3" for 127.0.0.1 at 2018-02-12 03:42:11 -0600
+Processing by AlumsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mAlum Load (30.8ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 3 LIMIT 1[0m
+  Rendering alums/show.html.erb within layouts/application
+  Rendered alums/show.html.erb within layouts/application (60.3ms)
+Completed 500 Internal Server Error in 100ms (ActiveRecord: 30.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `thumb' for "#<ActionDispatch::Http::UploadedFile:0x00007fd3d1053618>":String):
+    27: 
+    28: <p>
+    29:   <strong>Prof:</strong>
+    30:   <%= image_tag @alum.foto.thumb.url %>
+    31: </p>
+    32: 
+    33: <p>
+  
+app/views/alums/show.html.erb:30:in `_app_views_alums_show_html_erb___132867233669949372_70273855137200'
+Started GET "/alums/3" for 127.0.0.1 at 2018-02-12 03:42:25 -0600
+Processing by AlumsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mAlum Load (0.6ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 3 LIMIT 1[0m
+  Rendering alums/show.html.erb within layouts/application
+  Rendered alums/show.html.erb within layouts/application (57.9ms)
+Completed 500 Internal Server Error in 73ms (ActiveRecord: 0.6ms)
+
+
+  
+ActionView::Template::Error (undefined method `thumb' for "#<ActionDispatch::Http::UploadedFile:0x00007fd3d1053618>":String):
+    27: 
+    28: <p>
+    29:   <strong>Prof:</strong>
+    30:   <%= foto_tag @alum.foto.thumb.url %>
+    31: </p>
+    32: 
+    33: <p>
+  
+app/views/alums/show.html.erb:30:in `_app_views_alums_show_html_erb___132867233669949372_70273753381560'
+Started GET "/alums/3" for 127.0.0.1 at 2018-02-12 03:43:39 -0600
+Processing by AlumsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mAlum Load (0.6ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 3 LIMIT 1[0m
+  Rendering alums/show.html.erb within layouts/application
+  Rendered alums/show.html.erb within layouts/application (6.9ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.6ms)
+
+
+  
+ActionView::Template::Error (undefined method `thumb' for "#<ActionDispatch::Http::UploadedFile:0x00007fd3d1053618>":String):
+    17: 
+    18: <p>
+    19:   <strong>Foto:</strong>
+    20:   <%= image_tag @alum.foto.thumb.url %>
+    21: </p>
+    22: 
+    23: <p>
+  
+app/views/alums/show.html.erb:20:in `_app_views_alums_show_html_erb___132867233669949372_46917344722620'
+Started GET "/alums/3" for 127.0.0.1 at 2018-02-12 03:43:59 -0600
+Processing by AlumsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mAlum Load (0.6ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 3 LIMIT 1[0m
+  Rendering alums/show.html.erb within layouts/application
+  Rendered alums/show.html.erb within layouts/application (8.8ms)
+Completed 500 Internal Server Error in 29ms (ActiveRecord: 0.6ms)
+
+
+  
+ActionView::Template::Error (undefined method `thumb' for "#<ActionDispatch::Http::UploadedFile:0x00007fd3d1053618>":String):
+    17: 
+    18: <p>
+    19:   <strong>Foto:</strong>
+    20:   <%= foto_tag @alum.foto.thumb.url %>
+    21: </p>
+    22: 
+    23: <p>
+  
+app/views/alums/show.html.erb:20:in `_app_views_alums_show_html_erb___132867233669949372_70273863724300'
+Started GET "/alums/3" for 127.0.0.1 at 2018-02-12 03:44:12 -0600
+Processing by AlumsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mAlum Load (0.5ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 3 LIMIT 1[0m
+  Rendering alums/show.html.erb within layouts/application
+  [1m[36mProf Load (2.4ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.9ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  Rendered alums/show.html.erb within layouts/application (16.7ms)
+Completed 200 OK in 208ms (Views: 197.9ms | ActiveRecord: 3.8ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 03:44:17 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.8ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  Rendered alums/index.html.erb within layouts/application (13.1ms)
+Completed 500 Internal Server Error in 43ms (ActiveRecord: 0.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `url' for "estudiante_30.jpg":String):
+    22:         <td><%= alum.matricula %></td>
+    23:         <td><%= alum.nombre %></td>
+    24:         <td><%= alum.apellidos %></td>
+    25:         <td><%= image_tag alum.foto.url %></td>
+    26:         <td><%= alum.correo %></td>
+    27:         <td><%= alum.prof %></td>
+    28:         <td><%= alum.idiom %></td>
+  
+app/views/alums/index.html.erb:25:in `block in _app_views_alums_index_html_erb___3118180933170330112_70273791914120'
+app/views/alums/index.html.erb:20:in `_app_views_alums_index_html_erb___3118180933170330112_70273791914120'
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 03:44:34 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.6ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (1.5ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (2.2ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (37.5ms)
+Completed 200 OK in 238ms (Views: 229.7ms | ActiveRecord: 4.4ms)
+
+
+  [1m[35m (513.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (25.7ms)[0m  [1m[34mSELECT GET_LOCK(3251891552908144230, 0)[0m
+  [1m[35m (71.7ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreatePrus (20180212094534)
+  [1m[35m (1694.7ms)[0m  [1m[35mCREATE TABLE `prus` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `foto` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (138.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180212094534')[0m
+  [1m[35m (86.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (44.0ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT RELEASE_LOCK(3251891552908144230)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 03:47:15 -0600
+  [1m[35m (40.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by AlumsController#index as HTML
+Completed 500 Internal Server Error in 263ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Alum::ImageUploader):
+  
+app/models/alum.rb:4:in `<class:Alum>'
+app/models/alum.rb:1:in `<top (required)>'
+app/controllers/alums_controller.rb:7:in `index'
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 03:50:21 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.8ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (1.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (2.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.1ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (339.0ms)
+Completed 200 OK in 42121ms (Views: 41996.7ms | ActiveRecord: 58.2ms)
+
+
+Started GET "/prus" for 127.0.0.1 at 2018-02-12 03:51:19 -0600
+Processing by PrusController#index as HTML
+Completed 500 Internal Server Error in 60ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Pru::ImageUploader):
+  
+app/models/pru.rb:2:in `<class:Pru>'
+app/models/pru.rb:1:in `<top (required)>'
+app/controllers/prus_controller.rb:7:in `index'
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 03:57:07 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (1.4ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (67.9ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.7ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.1ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (764.6ms)
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 03:57:18 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (256.4ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (79.8ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (27.3ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.1ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (2638.5ms)
+Completed 200 OK in 22951ms (Views: 21520.2ms | ActiveRecord: 70.2ms)
+
+
+Completed 200 OK in 16861ms (Views: 16494.9ms | ActiveRecord: 363.7ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:57:55 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  [1m[36mProf Load (10.9ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  Rendered alums/_form.html.erb (193.4ms)
+  Rendered alums/new.html.erb within layouts/application (313.5ms)
+Completed 200 OK in 1491ms (Views: 1408.5ms | ActiveRecord: 10.9ms)
+
+
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 03:58:57 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  [1m[36mIdiom Load (7.5ms)[0m  [1m[34mSELECT `idioms`.* FROM `idioms`[0m
+  Rendered alums/_form.html.erb (227.5ms)
+  Rendered alums/new.html.erb within layouts/application (233.6ms)
+Completed 500 Internal Server Error in 247ms (ActiveRecord: 8.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `nombre' for #<Idiom:0x00007fd3d1e085d8>):
+    43: 
+    44:   <div class="field">
+    45:     <%= form.label :idiom_id %>
+    46:     <%= form.select :idiom_id, options_from_collection_for_select(Idiom.all, 'id', 'nombre', @alum.idiom_id) %>
+    47:   </div>
+    48: 
+    49:   <div class="actions">
+  
+app/views/alums/_form.html.erb:46:in `block in _app_views_alums__form_html_erb__749540843011204109_70273868053000'
+app/views/alums/_form.html.erb:1:in `_app_views_alums__form_html_erb__749540843011204109_70273868053000'
+app/views/alums/new.html.erb:3:in `_app_views_alums_new_html_erb__4554511464062367505_70273868068600'
+Started GET "/alums/new" for 127.0.0.1 at 2018-02-12 04:00:15 -0600
+Processing by AlumsController#new as HTML
+  Rendering alums/new.html.erb within layouts/application
+  [1m[36mProf Load (0.5ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  [1m[36mIdiom Load (0.5ms)[0m  [1m[34mSELECT `idioms`.* FROM `idioms`[0m
+  Rendered alums/_form.html.erb (77.9ms)
+  Rendered alums/new.html.erb within layouts/application (82.2ms)
+Completed 200 OK in 322ms (Views: 318.3ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/alums" for 127.0.0.1 at 2018-02-12 04:01:06 -0600
+Processing by AlumsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"u42YU5enA/+ZgPQQTByyEqENjWFS1juXW9StO1OLrVqMVUIrjUx9vr/ZRyDA1qPiuZEvxc8BOoIyMkyHbIF1ow==", "alum"=>{"matricula"=>"2014032458", "nombre"=>"Jaime", "apellidos"=>"Melchor Aguilar", "correo"=>"jaimelchor@gmail.com", "prof_id"=>"1", "idiom_id"=>"1"}, "commit"=>"Create Alum"}
+  [1m[35m (977.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mProf Load (2200.4ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.6ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[35mSQL (260.0ms)[0m  [1m[32mINSERT INTO `alums` (`matricula`, `nombre`, `apellidos`, `correo`, `prof_id`, `idiom_id`, `created_at`, `updated_at`) VALUES (2014032458, 'Jaime', 'Melchor Aguilar', 'jaimelchor@gmail.com', 1, 1, '2018-02-12 10:01:12', '2018-02-12 10:01:12')[0m
+  [1m[35m (1293.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/alums/4
+Completed 302 Found in 6726ms (ActiveRecord: 4732.5ms)
+
+
+Started GET "/alums/4" for 127.0.0.1 at 2018-02-12 04:01:14 -0600
+Processing by AlumsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mAlum Load (0.7ms)[0m  [1m[34mSELECT  `alums`.* FROM `alums` WHERE `alums`.`id` = 4 LIMIT 1[0m
+  Rendering alums/show.html.erb within layouts/application
+  [1m[36mProf Load (0.5ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (133.4ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  Rendered alums/show.html.erb within layouts/application (480.8ms)
+Completed 200 OK in 4376ms (Views: 3886.9ms | ActiveRecord: 134.6ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 04:01:30 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (3.2ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (0.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.8ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (62.2ms)
+Completed 200 OK in 711ms (Views: 682.0ms | ActiveRecord: 4.8ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 04:16:37 -0600
+  [1m[35m (161.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.1.4) lib/active_record/migration.rb:576:in `check_pending!'
+activerecord (5.1.4) lib/active_record/migration.rb:553:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.4) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  [1m[35m (738.5ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (45.7ms)[0m  [1m[34mSELECT GET_LOCK(3251891552908144230, 0)[0m
+  [1m[35m (41.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateHistorials (20180212101208)
+  [1m[35m (4573.2ms)[0m  [1m[35mCREATE TABLE `historials` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `alum_id` bigint, `mat_id` bigint, `calif_1` float, `calif_2` float, `calif_3` float, `final` float, `ext_1` float, `ext_2` float, `esp` float, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_historials_on_alum_id`  (`alum_id`),  INDEX `index_historials_on_mat_id`  (`mat_id`), CONSTRAINT `fk_rails_691d5e3f11`
+FOREIGN KEY (`alum_id`)
+  REFERENCES `alums` (`id`)
+, CONSTRAINT `fk_rails_8c71aaa28c`
+FOREIGN KEY (`mat_id`)
+  REFERENCES `mats` (`id`)
+) ENGINE=InnoDB[0m
+  [1m[35m (2.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (58.0ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180212101208')[0m
+  [1m[35m (113.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateTutors (20180212101546)
+  [1m[35m (1849.5ms)[0m  [1m[35mCREATE TABLE `tutors` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `prof_id` bigint, `alum_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_tutors_on_prof_id`  (`prof_id`),  INDEX `index_tutors_on_alum_id`  (`alum_id`), CONSTRAINT `fk_rails_5a66f64822`
+FOREIGN KEY (`prof_id`)
+  REFERENCES `profs` (`id`)
+, CONSTRAINT `fk_rails_185fb6469d`
+FOREIGN KEY (`alum_id`)
+  REFERENCES `alums` (`id`)
+) ENGINE=InnoDB[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180212101546')[0m
+  [1m[35m (73.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.3ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT RELEASE_LOCK(3251891552908144230)[0m
+  [1m[35m (3.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 04:18:18 -0600
+  [1m[35m (25.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (0.8ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (1.1ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (1.9ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (548.6ms)
+Completed 200 OK in 22145ms (Views: 21915.4ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/historial" for 127.0.0.1 at 2018-02-12 04:18:57 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/historial"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/historials" for 127.0.0.1 at 2018-02-12 04:19:14 -0600
+Processing by HistorialsController#index as HTML
+  Rendering historials/index.html.erb within layouts/application
+  [1m[36mHistorial Load (18.3ms)[0m  [1m[34mSELECT `historials`.* FROM `historials`[0m
+  Rendered historials/index.html.erb within layouts/application (104.0ms)
+Completed 200 OK in 524ms (Views: 378.6ms | ActiveRecord: 63.5ms)
+
+
+Started GET "/tutors" for 127.0.0.1 at 2018-02-12 04:20:06 -0600
+Processing by TutorsController#index as HTML
+  Rendering tutors/index.html.erb within layouts/application
+  [1m[36mTutor Load (42.2ms)[0m  [1m[34mSELECT `tutors`.* FROM `tutors`[0m
+  Rendered tutors/index.html.erb within layouts/application (78.1ms)
+Completed 200 OK in 666ms (Views: 499.3ms | ActiveRecord: 72.8ms)
+
+
+Started GET "/tutors/new" for 127.0.0.1 at 2018-02-12 04:20:09 -0600
+Processing by TutorsController#new as HTML
+  Rendering tutors/new.html.erb within layouts/application
+  Rendered tutors/_form.html.erb (14.2ms)
+  Rendered tutors/new.html.erb within layouts/application (48.7ms)
+Completed 200 OK in 421ms (Views: 264.1ms | ActiveRecord: 99.4ms)
+
+
+Started GET "/tutors" for 127.0.0.1 at 2018-02-12 04:20:52 -0600
+Processing by TutorsController#index as HTML
+  Rendering tutors/index.html.erb within layouts/application
+  [1m[36mTutor Load (0.6ms)[0m  [1m[34mSELECT `tutors`.* FROM `tutors`[0m
+  Rendered tutors/index.html.erb within layouts/application (8.0ms)
+Completed 200 OK in 255ms (Views: 252.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 04:24:18 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (2.1ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (388.4ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (0.8ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (1.5ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (484.7ms)
+Completed 200 OK in 1016ms (Views: 554.5ms | ActiveRecord: 393.1ms)
+
+
+Started GET "/historials" for 127.0.0.1 at 2018-02-12 04:38:14 -0600
+Processing by HistorialsController#index as HTML
+  Rendering historials/index.html.erb within layouts/application
+  [1m[36mHistorial Load (356.9ms)[0m  [1m[34mSELECT `historials`.* FROM `historials`[0m
+  Rendered historials/index.html.erb within layouts/application (3476.9ms)
+Completed 200 OK in 16372ms (Views: 15028.7ms | ActiveRecord: 356.9ms)
+
+
+Started GET "/historials/new" for 127.0.0.1 at 2018-02-12 04:38:41 -0600
+Processing by HistorialsController#new as HTML
+  Rendering historials/new.html.erb within layouts/application
+  Rendered historials/_form.html.erb (389.8ms)
+  Rendered historials/new.html.erb within layouts/application (447.8ms)
+Completed 200 OK in 5111ms (Views: 2882.3ms | ActiveRecord: 318.3ms)
+
+
+Started GET "/ents" for 127.0.0.1 at 2018-02-12 04:39:16 -0600
+Processing by EntsController#index as HTML
+  Rendering ents/index.html.erb within layouts/application
+  [1m[36mEnt Load (109.9ms)[0m  [1m[34mSELECT `ents`.* FROM `ents`[0m
+  Rendered ents/index.html.erb within layouts/application (346.7ms)
+Completed 200 OK in 1916ms (Views: 1454.9ms | ActiveRecord: 279.4ms)
+
+
+Started GET "/tutors" for 127.0.0.1 at 2018-02-12 04:39:48 -0600
+Processing by TutorsController#index as HTML
+  Rendering tutors/index.html.erb within layouts/application
+  [1m[36mTutor Load (38.9ms)[0m  [1m[34mSELECT `tutors`.* FROM `tutors`[0m
+  Rendered tutors/index.html.erb within layouts/application (50.2ms)
+Completed 200 OK in 1916ms (Views: 1768.7ms | ActiveRecord: 38.9ms)
+
+
+Started GET "/tutors/new" for 127.0.0.1 at 2018-02-12 04:39:54 -0600
+Processing by TutorsController#new as HTML
+  Rendering tutors/new.html.erb within layouts/application
+  Rendered tutors/_form.html.erb (43.3ms)
+  Rendered tutors/new.html.erb within layouts/application (108.3ms)
+Completed 200 OK in 1325ms (Views: 1300.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/alums" for 127.0.0.1 at 2018-02-12 04:40:42 -0600
+Processing by AlumsController#index as HTML
+  Rendering alums/index.html.erb within layouts/application
+  [1m[36mAlum Load (93.9ms)[0m  [1m[34mSELECT `alums`.* FROM `alums`[0m
+  [1m[36mProf Load (30.6ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m
+  [1m[36mIdiom Load (9.9ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Prof Load (0.0ms)[0m  [1m[34mSELECT  `profs`.* FROM `profs` WHERE `profs`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Idiom Load (0.0ms)[0m  [1m[34mSELECT  `idioms`.* FROM `idioms` WHERE `idioms`.`id` = 1 LIMIT 1[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered alums/index.html.erb within layouts/application (361.3ms)
+Completed 200 OK in 1288ms (Views: 1126.1ms | ActiveRecord: 134.6ms)
+
+
+Started GET "/prueba" for 127.0.0.1 at 2018-02-12 04:41:07 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/prueba"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:41:13 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (164.6ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (645.2ms)
+Completed 200 OK in 3791ms (Views: 3269.3ms | ActiveRecord: 285.8ms)
+
+
+Started GET "/prueba" for 127.0.0.1 at 2018-02-12 04:41:17 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/prueba"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.11.2) lib/puma/configuration.rb:225:in `call'
+puma (3.11.2) lib/puma/server.rb:624:in `handle_request'
+puma (3.11.2) lib/puma/server.rb:438:in `process_client'
+puma (3.11.2) lib/puma/server.rb:302:in `block in run'
+puma (3.11.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:41:28 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (26.1ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (33.7ms)
+Completed 200 OK in 438ms (Views: 409.6ms | ActiveRecord: 26.1ms)
+
+
+Started GET "/pruebas/new" for 127.0.0.1 at 2018-02-12 04:42:23 -0600
+Processing by PruebasController#new as HTML
+  Rendering pruebas/new.html.erb within layouts/application
+  Rendered pruebas/_form.html.erb (36.2ms)
+  Rendered pruebas/new.html.erb within layouts/application (38.3ms)
+Completed 200 OK in 269ms (Views: 267.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/pruebas" for 127.0.0.1 at 2018-02-12 04:42:32 -0600
+Processing by PruebasController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"dQFmipH5IcirX66Tlc1FAwJCAy8Yo02jEpJLZB8o0jvcMRRAJWXe8JQDve3RmaQtMJQ4qSg4KTYivlshImJFPw==", "prueba"=>{"nombre"=>"Hola cra"}, "commit"=>"Create Prueba"}
+  [1m[35m (49.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (383.2ms)[0m  [1m[32mINSERT INTO `pruebas` (`nombre`, `created_at`, `updated_at`) VALUES ('Hola cra', '2018-02-12 10:42:32', '2018-02-12 10:42:32')[0m
+  [1m[35m (576.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/pruebas/2
+Completed 302 Found in 1508ms (ActiveRecord: 1009.7ms)
+
+
+Started GET "/pruebas/2" for 127.0.0.1 at 2018-02-12 04:42:33 -0600
+Processing by PruebasController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPrueba Load (0.8ms)[0m  [1m[34mSELECT  `pruebas`.* FROM `pruebas` WHERE `pruebas`.`id` = 2 LIMIT 1[0m
+  Rendering pruebas/show.html.erb within layouts/application
+  Rendered pruebas/show.html.erb within layouts/application (10.6ms)
+Completed 200 OK in 438ms (Views: 260.7ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:42:36 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.7ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (5.4ms)
+Completed 200 OK in 299ms (Views: 295.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/pruebas/new" for 127.0.0.1 at 2018-02-12 04:42:38 -0600
+Processing by PruebasController#new as HTML
+  Rendering pruebas/new.html.erb within layouts/application
+  Rendered pruebas/_form.html.erb (5.9ms)
+  Rendered pruebas/new.html.erb within layouts/application (12.1ms)
+Completed 200 OK in 311ms (Views: 306.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/pruebas" for 127.0.0.1 at 2018-02-12 04:42:42 -0600
+Processing by PruebasController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"XNnmCZVpuX6JHZ2VhDo2fsVlChJnQEsYxM/dUMy3JIX16ZTDIfVGRrZBjuvAbtdQ97MxlFfbL430480V8f2zgQ==", "prueba"=>{"nombre"=>"Mi mama"}, "commit"=>"Create Prueba"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (45.0ms)[0m  [1m[32mINSERT INTO `pruebas` (`nombre`, `created_at`, `updated_at`) VALUES ('Mi mama', '2018-02-12 10:42:42', '2018-02-12 10:42:42')[0m
+  [1m[35m (83.0ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/pruebas/3
+Completed 302 Found in 140ms (ActiveRecord: 128.2ms)
+
+
+Started GET "/pruebas/3" for 127.0.0.1 at 2018-02-12 04:42:42 -0600
+Processing by PruebasController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mPrueba Load (0.8ms)[0m  [1m[34mSELECT  `pruebas`.* FROM `pruebas` WHERE `pruebas`.`id` = 3 LIMIT 1[0m
+  Rendering pruebas/show.html.erb within layouts/application
+  Rendered pruebas/show.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 208ms (Views: 199.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:42:45 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.8ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (6.7ms)
+Completed 200 OK in 210ms (Views: 208.2ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:44:06 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (5.3ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (12.1ms)
+Completed 200 OK in 823ms (Views: 807.6ms | ActiveRecord: 5.3ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:45:07 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.6ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (11.3ms)
+Completed 200 OK in 244ms (Views: 240.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:45:24 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.7ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (6.8ms)
+Completed 200 OK in 262ms (Views: 259.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:45:52 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (7.6ms)
+Completed 200 OK in 192ms (Views: 190.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:48:01 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (6593.6ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (17616.8ms)
+Completed 200 OK in 170355ms (Views: 152809.6ms | ActiveRecord: 6593.6ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:53:08 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (6433.3ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (9804.7ms)
+Completed 200 OK in 22121ms (Views: 14950.6ms | ActiveRecord: 6433.3ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 04:55:10 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (38.8ms)
+Completed 200 OK in 70234ms (Views: 70231.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:01:40 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (429.2ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (989.0ms)
+Completed 200 OK in 2856ms (Views: 2339.4ms | ActiveRecord: 429.2ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:04:00 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.6ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (6.4ms)
+Completed 200 OK in 394ms (Views: 392.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:04:58 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (118.8ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (204.8ms)
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:04:59 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (22.6ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (28.2ms)
+Completed 500 Internal Server Error in 4119ms (ActiveRecord: 118.8ms)
+
+
+  
+Completed 200 OK in 2847ms (Views: 2821.4ms | ActiveRecord: 22.6ms)
+
+
+ActionView::Template::Error (can't add a new key into hash during iteration):
+     5:     <%= csrf_meta_tags %>
+     6: 
+     7:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+     8:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+     9:   </head>
+    10: 
+    11:   <body>
+  
+app/views/layouts/application.html.erb:8:in `_app_views_layouts_application_html_erb___110885837401596781_70273867919720'
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:06:07 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.8ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (8.2ms)
+Completed 200 OK in 330ms (Views: 279.9ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:06:25 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (33.7ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (67.2ms)
+Completed 200 OK in 322ms (Views: 284.2ms | ActiveRecord: 33.7ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:07:01 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (2.7ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (9.5ms)
+Completed 200 OK in 25400ms (Views: 25395.6ms | ActiveRecord: 2.7ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:09:51 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  Rendered pruebas/index.html.erb within layouts/application (102.6ms)
+Completed 500 Internal Server Error in 113ms (ActiveRecord: 0.0ms)
+
+
+  
+SyntaxError (/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:21: syntax error, unexpected '='
+..._buffer.append=( link_to class="btn btn-primary"'Show', prue...
+...                              ^
+/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:21: syntax error, unexpected ',', expecting ')'
+... class="btn btn-primary"'Show', prueba );@output_buffer.safe...
+...                              ^):
+  
+app/views/pruebas/index.html.erb:21: syntax error, unexpected '='
+app/views/pruebas/index.html.erb:21: syntax error, unexpected ',', expecting ')'
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:11:10 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (31.6ms)
+Completed 200 OK in 13678ms (Views: 13674.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:15:05 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (93.0ms)
+Completed 200 OK in 329ms (Views: 327.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:17:15 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (13.5ms)
+Completed 200 OK in 350ms (Views: 344.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:17:25 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (37.6ms)
+Completed 200 OK in 248ms (Views: 243.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:19:00 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (34.5ms)
+Completed 200 OK in 233ms (Views: 228.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:19:23 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (1.6ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (8.1ms)
+Completed 200 OK in 242ms (Views: 236.4ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/pruebas/2" for 127.0.0.1 at 2018-02-12 05:19:34 -0600
+Processing by PruebasController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPrueba Load (264.7ms)[0m  [1m[34mSELECT  `pruebas`.* FROM `pruebas` WHERE `pruebas`.`id` = 2 LIMIT 1[0m
+  Rendering pruebas/show.html.erb within layouts/application
+  Rendered pruebas/show.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 377ms (Views: 107.8ms | ActiveRecord: 264.7ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:19:57 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.6ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (8.2ms)
+Completed 200 OK in 243ms (Views: 240.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:20:24 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (26.8ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (33.0ms)
+Completed 200 OK in 234ms (Views: 202.9ms | ActiveRecord: 26.8ms)
+
+
+Started GET "/pruebas/1" for 127.0.0.1 at 2018-02-12 05:20:29 -0600
+Processing by PruebasController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPrueba Load (1.4ms)[0m  [1m[34mSELECT  `pruebas`.* FROM `pruebas` WHERE `pruebas`.`id` = 1 LIMIT 1[0m
+  Rendering pruebas/show.html.erb within layouts/application
+  Rendered pruebas/show.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 190ms (Views: 184.0ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:20:55 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (49.6ms)
+Completed 200 OK in 258ms (Views: 255.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:21:21 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (7.8ms)
+Completed 200 OK in 223ms (Views: 220.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas/1/edit" for 127.0.0.1 at 2018-02-12 05:21:25 -0600
+Processing by PruebasController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPrueba Load (0.7ms)[0m  [1m[34mSELECT  `pruebas`.* FROM `pruebas` WHERE `pruebas`.`id` = 1 LIMIT 1[0m
+  Rendering pruebas/edit.html.erb within layouts/application
+  Rendered pruebas/_form.html.erb (63.5ms)
+  Rendered pruebas/edit.html.erb within layouts/application (67.8ms)
+Completed 200 OK in 271ms (Views: 265.4ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:22:45 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.6ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (8.7ms)
+Completed 200 OK in 240ms (Views: 232.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:23:13 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (1.3ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (10.6ms)
+Completed 200 OK in 221ms (Views: 218.2ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:24:02 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.8ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (8.3ms)
+Completed 200 OK in 212ms (Views: 209.7ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:24:34 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (42.2ms)
+Completed 200 OK in 246ms (Views: 241.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:24:55 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.6ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (6.2ms)
+Completed 200 OK in 272ms (Views: 268.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:26:27 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (2.2ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (26.3ms)
+Completed 200 OK in 237ms (Views: 231.4ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:27:52 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (31.4ms)
+Completed 200 OK in 245ms (Views: 242.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:31:33 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  Rendered pruebas/index.html.erb within layouts/application (5.2ms)
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 0.0ms)
+
+
+  
+SyntaxError (/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:43: syntax error, unexpected ','
+...ba',class:"btn btn-primary" do,new_prueba_path );@output_buf...
+...                              ^
+/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:48: syntax error, unexpected keyword_ensure, expecting ')'
+          ensure
+          ^~~~~~
+/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:50: syntax error, unexpected keyword_end, expecting ')'
+          end
+          ^~~):
+  
+app/views/pruebas/index.html.erb:43: syntax error, unexpected ','
+app/views/pruebas/index.html.erb:48: syntax error, unexpected keyword_ensure, expecting ')'
+app/views/pruebas/index.html.erb:50: syntax error, unexpected keyword_end, expecting ')'
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:31:43 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  Rendered pruebas/index.html.erb within layouts/application (2.9ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.0ms)
+
+
+  
+SyntaxError (/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:43: syntax error, unexpected ')', expecting =>
+... btn-primary",new_prueba_path );@output_buffer.safe_append='
+...                              ^
+/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:48: syntax error, unexpected keyword_ensure, expecting ')'
+          ensure
+          ^~~~~~
+/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:50: syntax error, unexpected keyword_end, expecting ')'
+          end
+          ^~~):
+  
+app/views/pruebas/index.html.erb:43: syntax error, unexpected ')', expecting =>
+app/views/pruebas/index.html.erb:48: syntax error, unexpected keyword_ensure, expecting ')'
+app/views/pruebas/index.html.erb:50: syntax error, unexpected keyword_end, expecting ')'
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:32:03 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  Rendered pruebas/index.html.erb within layouts/application (3.6ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.0ms)
+
+
+  
+SyntaxError (/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:43: syntax error, unexpected ','
+...a',class: "btn btn-primary" do,new_prueba_path );@output_buf...
+...                              ^
+/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:48: syntax error, unexpected keyword_ensure, expecting ')'
+          ensure
+          ^~~~~~
+/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:50: syntax error, unexpected keyword_end, expecting ')'
+          end
+          ^~~):
+  
+app/views/pruebas/index.html.erb:43: syntax error, unexpected ','
+app/views/pruebas/index.html.erb:48: syntax error, unexpected keyword_ensure, expecting ')'
+app/views/pruebas/index.html.erb:50: syntax error, unexpected keyword_end, expecting ')'
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:32:12 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  Rendered pruebas/index.html.erb within layouts/application (1.3ms)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 0.0ms)
+
+
+  
+SyntaxError (/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:43: syntax error, unexpected ')', expecting =>
+... btn-primary",new_prueba_path );@output_buffer.safe_append='
+...                              ^
+/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:48: syntax error, unexpected keyword_ensure, expecting ')'
+          ensure
+          ^~~~~~
+/home/cosi/Documentos/sistema/app/views/pruebas/index.html.erb:50: syntax error, unexpected keyword_end, expecting ')'
+          end
+          ^~~):
+  
+app/views/pruebas/index.html.erb:43: syntax error, unexpected ')', expecting =>
+app/views/pruebas/index.html.erb:48: syntax error, unexpected keyword_ensure, expecting ')'
+app/views/pruebas/index.html.erb:50: syntax error, unexpected keyword_end, expecting ')'
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:32:53 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (461.9ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (587.9ms)
+Completed 200 OK in 1139ms (Views: 655.5ms | ActiveRecord: 461.9ms)
+
+
+Started GET "/pruebas/new" for 127.0.0.1 at 2018-02-12 05:32:59 -0600
+Processing by PruebasController#new as HTML
+  Rendering pruebas/new.html.erb within layouts/application
+  Rendered pruebas/_form.html.erb (5.0ms)
+  Rendered pruebas/new.html.erb within layouts/application (25.3ms)
+Completed 200 OK in 262ms (Views: 246.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 05:33:49 -0600
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (0.5ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (9.4ms)
+Completed 200 OK in 219ms (Views: 210.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/pruebas" for 127.0.0.1 at 2018-02-12 10:47:26 -0600
+  [1m[35m (1053.9ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (54.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by PruebasController#index as HTML
+  Rendering pruebas/index.html.erb within layouts/application
+  [1m[36mPrueba Load (347.0ms)[0m  [1m[34mSELECT `pruebas`.* FROM `pruebas`[0m
+  Rendered pruebas/index.html.erb within layouts/application (426.4ms)
+Completed 200 OK in 3957ms (Views: 3535.2ms | ActiveRecord: 376.9ms)
+
+
+Started GET "/pruebas/new" for 127.0.0.1 at 2018-02-12 10:49:28 -0600
+Processing by PruebasController#new as HTML
+  Rendering pruebas/new.html.erb within layouts/application
+  Rendered pruebas/_form.html.erb (120.9ms)
+  Rendered pruebas/new.html.erb within layouts/application (124.9ms)
+Completed 200 OK in 262ms (Views: 260.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/tutors" for 127.0.0.1 at 2018-02-12 10:54:33 -0600
+Processing by TutorsController#index as HTML
+  Rendering tutors/index.html.erb within layouts/application
+  [1m[35m (167.8ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[36mTutor Load (192.9ms)[0m  [1m[34mSELECT `tutors`.* FROM `tutors`[0m
+  Rendered tutors/index.html.erb within layouts/application (776.2ms)
+Completed 200 OK in 1945ms (Views: 755.0ms | ActiveRecord: 426.6ms)
+
+
+Started GET "/tutors/new" for 127.0.0.1 at 2018-02-12 10:54:37 -0600
+Processing by TutorsController#new as HTML
+  Rendering tutors/new.html.erb within layouts/application
+  Rendered tutors/_form.html.erb (26.3ms)
+  Rendered tutors/new.html.erb within layouts/application (81.1ms)
+Completed 200 OK in 388ms (Views: 233.9ms | ActiveRecord: 121.1ms)
+
+
+Started GET "/profs" for 127.0.0.1 at 2018-02-12 10:54:48 -0600
+Processing by ProfsController#index as HTML
+  Rendering profs/index.html.erb within layouts/application
+  [1m[36mProf Load (264.0ms)[0m  [1m[34mSELECT `profs`.* FROM `profs`[0m
+  Rendered profs/index.html.erb within layouts/application (317.1ms)
+Completed 200 OK in 571ms (Views: 179.7ms | ActiveRecord: 283.1ms)
+
+
