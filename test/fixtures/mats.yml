@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  calif_1: 1.5
+  calif_2: 1.5
+  calif_3: 1.5
+  final: 1.5
+  ext_1: 1.5
+  ext_2: 1.5
+  esp: 1.5
+  semestre: MyString
+
+two:
+  nombre: MyString
+  calif_1: 1.5
+  calif_2: 1.5
+  calif_3: 1.5
+  final: 1.5
+  ext_1: 1.5
+  ext_2: 1.5
+  esp: 1.5
+  semestre: MyString

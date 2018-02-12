@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  matricula: 1
+  nombre: MyString
+  apellidos: MyString
+  foto: MyString
+  correo: MyString
+  prof: one
+  idiom: one
+
+two:
+  matricula: 1
+  nombre: MyString
+  apellidos: MyString
+  foto: MyString
+  correo: MyString
+  prof: two
+  idiom: two

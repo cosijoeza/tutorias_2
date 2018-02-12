@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  alum: one
+  mat: one
+  calif_1: 1.5
+  calif_2: 1.5
+  calif_3: 1.5
+  final: 1.5
+  ext_1: 1.5
+  ext_2: 1.5
+  esp: 1.5
+
+two:
+  alum: two
+  mat: two
+  calif_1: 1.5
+  calif_2: 1.5
+  calif_3: 1.5
+  final: 1.5
+  ext_1: 1.5
+  ext_2: 1.5
+  esp: 1.5
